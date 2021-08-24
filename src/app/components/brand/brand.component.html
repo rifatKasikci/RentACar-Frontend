@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let brand of brands">
+      <tr *ngFor="let brand of brands" routerLink="/cars/brand/{{brand.id}}">
         <td>{{brand.id}}</td>
         <td>{{brand.brandName}}</td>
       </tr>

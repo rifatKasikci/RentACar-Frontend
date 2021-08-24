@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let color of colors">
+      <tr *ngFor="let color of colors" routerLink="/cars/color/{{color.id}}">
         <td>{{color.id}}</td>
         <td>{{color.colorName}}</td>
       </tr>
