@@ -12,7 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 export class CarComponent implements OnInit {
 
   isDataLoaded = false
-  carDetails:CarDetail[] = []
+  filterText = ""
+  colorFilter = [1]
+  brandFilter = [3]
   cars:Car[] = []
 
   constructor(private carService:CarService , private activatedRoute:ActivatedRoute) { }
@@ -23,6 +25,8 @@ export class CarComponent implements OnInit {
         this.getCarsByBrandId(params["brandId"])
       }else if (params["colorId"]) {
         this.getCarsByColorId(params["colorId"])
+      }else if(params["brandId"] && params["colorId"]) {
+        
       }else{
         this.getCars()
       }
@@ -31,7 +35,7 @@ export class CarComponent implements OnInit {
 
   getCars(){
     return this.carService.getCars().subscribe((response) => {
-      this.carDetails = response.data
+      this.cars = response.data
       this.isDataLoaded = true
     })
   }
@@ -47,6 +51,14 @@ export class CarComponent implements OnInit {
     return this.carService.getCarsByColorId(colorId).subscribe((response) => {
       this.cars = response.data
       this.isDataLoaded = true
+      console.log(response.data)
+    })
+  }
+
+  getCarsByFiltered(brandId:number , colorId:number){
+    let carFilter = {brandId : brandId , colorId : colorId}
+    return this.carService.getCarsByFiltered(carFilter).subscribe((response) => {
+      this.cars = response.data
     })
   }
 

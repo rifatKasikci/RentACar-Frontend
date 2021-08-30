@@ -1,6 +1,28 @@
 <div *ngIf="isDataLoaded==false" class="spinner-border text-primary" role="status">
   <span class="visually-hidden">Loading...</span>
 </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-5">
+
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="margin-top: 75px; margin-right: 100px; background-color:beige ; max-width: 300px; max-height: 300px;"> 
+        <div class="carousel-inner">
+          <div class="carousel-item" *ngFor="let carImage of carImages; let i = index"  [ngClass]="{'active': i === 1}">
+            <img src={{rootPath}}{{carImage.imagePath}} width="300px" height="300px"/>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      </div>
+    <div class="col-7">
 <table *ngIf="isDataLoaded==true" class="table">
   <thead>
     <tr>
@@ -24,19 +46,18 @@
   </tbody>
 </table>
 
-
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="margin-left: 300px; background-color:beige ; max-width: 400px; max-height: 500px;"> 
-  <div class="carousel-inner">
-    <div class="carousel-item" *ngFor="let carImage of carImages; let i = index"  [ngClass]="{'active': i === 1}">
-      <img src={{rootPath}}{{carImage.imagePath}} width="400px" height="500px" />
-    </div>
+</div>
+</div>
+</div>
+<div style="max-width: 500px; margin: auto; margin-top: 50px;">
+  <h1 style="text-align: center;">Arabayı Kirala</h1>
+  <div style="margin-top: 20px;">
+    <label for="rentDate" class="form-label">Kiralama Tarihi</label>
+    <input type="date" [(ngModel)]="rentDate" [min]="lastRentalReturnDate" class="form-control" id="rentDate">
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" >
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+  <div style="margin-top: 20px;">
+    <label for="returnDate" class="form-label">Teslim Etme Tarihi</label>
+    <input type="date" [(ngModel)]="returnDate" class="form-control" id="returnDate">
+  </div>
+<button  type="button" style="margin-top: 20px;" (click)="rentCar(newRental)" class="btn btn-success">Kirala</button>
 </div>

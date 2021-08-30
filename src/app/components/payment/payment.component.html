@@ -1,0 +1,33 @@
+<div style="max-width: 700px; margin:auto">
+    <h1 style="margin-top: 20px; text-align: center;">Kart Bilgilerinizi Giriniz</h1>
+    <div>
+        <label for="firstName" class="form-label"></label>
+        <input type="text" [(ngModel)]="firstName" class="form-control" id="firstName" placeholder="Adınızı giriniz">
+        <label for="lastName" class="form-label"></label>
+        <input type="text" [(ngModel)]="lastName" class="form-control" id="lastName" placeholder="Soyadını giriniz">
+    </div>
+    <div>
+        <label for="creditCardNumber" class="form-label"></label>
+        <input type="text" [(ngModel)]="cardNumber" id="creditCardNumber" class="form-control" placeholder="Kart numaranızı giriniz">
+    </div>
+    <div style="margin-top: 20px; margin-bottom: 20px;">
+        <input class="form-control" [(ngModel)]="cardExpMonth" min="1" max="12" id="cardExpMonth" type="number" placeholder="Ay"
+            style="max-width: 300px;float: left;">
+        <input class="form-control" [(ngModel)]="cardExpYear" min="21" id="cardExpYear" type="number" placeholder="Yıl"
+            style="max-width: 300px; float :right">
+    </div>
+    <div style="margin-top: 20px;">
+        <input class="form-control" [(ngModel)]="cvv" min="100" id="cvv" type="number" placeholder="CVV">
+    </div>
+    <div style="margin-top: 20px;" class="form-check">
+        <input type="radio" [(ngModel)]="cardType" id="creditCard" name="creditCardType" class="form-check-input" value="Kredi Kartı">
+        <label for="creditCard" class="from-label">Kredi Kartı</label><br>
+        <input type="radio" [(ngModel)]="cardType" id="bankCard" name="creditCardType" class="form-check-input" value="Banka Kartı">
+        <label for="creditCard" class="from-label">Banka Kartı</label>
+    </div>
+    <div class="alert alert-danger" role="alert" style="max-width: 250px; float: right;">
+        Toplam Tutar : {{calculateAmount() | currency:"TRY"}}
+    </div>
+    <button class="btn btn-success" (click)="pay()" style="margin-top: 70px;">Ödemeyi yap</button>
+
+</div>
