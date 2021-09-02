@@ -1,0 +1,83 @@
+<div class="container" style="margin:auto;">
+    <div class="row">
+<div class="col">
+        <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Marka Adı</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{brand.id}}</td>
+        <td>{{brand.brandName}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="button-group" style="float: right;">
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Güncelle
+          </button>
+        <button class="btn btn-danger" style="margin-left: 25px;" data-bs-toggle="modal" data-bs-target="#exampleModal2">Sil</button>
+    </div>
+    </div>
+</div>
+</div>
+
+<!--Update Modal-->
+<div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Markayı Güncelle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="brandUpdateForm">
+          <div class="mb-3">
+              <label for="brandName">Marka ismi :</label>
+              <div class="form-group">
+              <input 
+              type="text" 
+              id="brandName" 
+              formControlName="brandName"
+              class="form-control" 
+              placeholder="{{brand.brandName}}" >
+          </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="updateBrand()">Güncelle</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Update Modal-->
+
+<!--Delete Modal-->
+<div class="modal fade" id="exampleModal2" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Emin misiniz?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bu markayı silmek istediğinize emin misiniz?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+        <button type="button" class="btn btn-success" (click)="deleteBrand(brand)" data-bs-dismiss="modal" routerLink="/brands">Sil</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Delete Modal-->
+

@@ -18,12 +18,14 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Marka Adı</th>
+        <th scope="col">İşlemler</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let brand of brands | brandFilter:filterText" routerLink="/cars/brand/{{brand.id}}">
         <td>{{brand.id}}</td>
         <td>{{brand.brandName}}</td>
+        <td><button routerLink="/brands/detail/{{brand.id}}" class="btn btn-success">Güncelle</button></td>
       </tr>
     </tbody>
   </table>

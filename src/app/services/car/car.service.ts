@@ -1,3 +1,4 @@
+import { ResponseModel } from 'src/app/models/responseModel';
 import { CarFilter } from './../../models/carFilter';
 import { ObjectResponseModel } from './../../models/objectResponseModel';
 import { CarDetail } from './../../models/carDetail';
@@ -44,6 +45,21 @@ export class CarService {
   getCarsByFiltered(carFilter:CarFilter):Observable<ListResponseModel<Car>>{
     let apiUrl = this.apiUrl + "cars/getcarsbyfiltered"
     return this.httpClient.post<ListResponseModel<Car>>(apiUrl , carFilter)
+  }
+
+  add(car:Car):Observable<ResponseModel>{
+    let apiUrl = this.apiUrl + "cars/add"
+    return this.httpClient.post<ResponseModel>(apiUrl , car)
+  }
+
+  update(car:Car):Observable<ResponseModel>{
+    let apiUrl = this.apiUrl + "cars/update"
+    return this.httpClient.post<ResponseModel>(apiUrl , car)
+  }
+
+  delete(car:Car):Observable<ResponseModel>{
+    let apiUrl = this.apiUrl + "cars/delete"
+    return this.httpClient.post<ResponseModel>(apiUrl , car)
   }
 
   

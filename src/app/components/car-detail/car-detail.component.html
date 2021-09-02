@@ -48,6 +48,18 @@
 
 </div>
 </div>
+<div class="row">
+  <div class="col">    
+  </div>
+  <div class="col">
+    <div class="button-group" style="float: right;">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Güncelle
+    </button>
+  <button class="btn btn-danger" style="margin-left: 25px;" data-bs-toggle="modal" data-bs-target="#exampleModal2">Sil</button>
+  </div>
+</div>
+</div>
 </div>
 <div style="max-width: 500px; margin: auto; margin-top: 50px;">
   <h1 style="text-align: center;">Arabayı Kirala</h1>
@@ -61,3 +73,110 @@
   </div>
 <button  type="button" style="margin-top: 20px;" (click)="rentCar(newRental)" class="btn btn-success">Kirala</button>
 </div>
+
+
+<!--Update Modal-->
+<div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Arabayı Güncelle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="carUpdateForm">
+          <div class="mb-3">
+              <label for="brandId">Marka İsmi :</label>
+              <div class="form-group">
+                  <select class="form-select" id="brandId" formControlName="brandId"  aria-label="Default select example">
+                      <option selected disabled>{{carDetail.brandName}}</option>
+                      <option *ngFor="let brand of brands" value={{brand.id}}>{{brand.brandName}}</option>
+                    </select>
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="colorId">Renk İsmi :</label>
+              <div class="form-group">
+                  <select class="form-select" id="colorId" formControlName="colorId" aria-label="Default select example">
+                      <option selected disabled value="{{car.colorId}}">{{carDetail.colorName}}</option>
+                      <option *ngFor="let color of colors" value="{{color.id}}">{{color.colorName}}</option>
+                    </select>
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="carName">Araba İsmi :</label>
+              <div class="form-group">
+                  <input 
+                  type="text"
+                  class="form-control" 
+                  formControlName="carName" 
+                  id="carName"
+                  placeholder="{{carDetail.carName}}">
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="modelYear">Model Yılı :</label>
+              <div class="form-group">
+                  <input 
+                  type="number"
+                  class="form-control" 
+                  formControlName="modelYear" 
+                  id="modelYear"
+                  placeholder="{{carDetail.modelYear}}">
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="dailyPrice">Günlük Ücreti :</label>
+              <div class="input-group">
+                  <span class="input-group-text">₺</span>
+                  <input 
+                  type="number"
+                  class="form-control" 
+                  formControlName="dailyPrice" 
+                  id="dailyPrice"
+                  placeholder="{{carDetail.dailyPrice}}">
+                  <span class="input-group-text">.00</span>
+              </div>
+              
+          </div>
+          <div class="mb-3">
+              <label for="description">Açıklama :</label>
+              <div class="input-group">
+                  <textarea 
+                  id="description" 
+                  class="form-control" 
+                  placeholder="{{carDetail.description}}"
+                  formControlName="description" 
+                  rows="5"></textarea>
+              </div>
+          </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="updateCar()">Güncelle</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Update Modal-->
+
+<!--Delete Modal-->
+<div class="modal fade" id="exampleModal2" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Emin misiniz?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bu arabayı silmek istediğinize emin misiniz?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+        <button type="button" class="btn btn-success" (click)="deleteCar()" data-bs-dismiss="modal" routerLink="/">Sil</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Delete Modal-->

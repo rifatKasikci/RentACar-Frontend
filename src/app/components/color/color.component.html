@@ -18,12 +18,16 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Renk Adı</th>
+        <th scope="col">İşlemler</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let color of colors | colorFilter:filterText" routerLink="/cars/color/{{color.id}}">
         <td>{{color.id}}</td>
         <td>{{color.colorName}}</td>
+        <td>
+          <button class="btn btn-success" routerLink="/colors/detail/{{color.id}}">Güncelle</button>
+        </td>
       </tr>
     </tbody>
   </table>
