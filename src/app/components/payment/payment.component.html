@@ -1,33 +1,84 @@
-<div style="max-width: 700px; margin:auto">
-    <h1 style="margin-top: 20px; text-align: center;">Kart Bilgilerinizi Giriniz</h1>
-    <div>
-        <label for="firstName" class="form-label"></label>
-        <input type="text" [(ngModel)]="firstName" class="form-control" id="firstName" placeholder="Adınızı giriniz">
-        <label for="lastName" class="form-label"></label>
-        <input type="text" [(ngModel)]="lastName" class="form-control" id="lastName" placeholder="Soyadını giriniz">
+<div class="container" style="margin-top: 50px;">
+    <div class="row">
+        <div class="col">
+            <h2 class="title">Ödeme</h2>
+            <form class="row g-3" [formGroup]="creditCardAddForm">
+                <div class="col-md-6">
+                    <label for="cardNumber" class="form-label">Kart Numarası</label>
+                    <input type="text" formControlName="cardNumber" class="form-control" id="cardNumber">
+                </div>
+                <div class="col-md-6">
+                    <label for="fullName" class="form-label">İsim Soyisim</label>
+                    <input type="text" class="form-control" formControlName="fullName" id="fullName">
+                </div>
+                <div class="col-6">
+                    <label for="cardExpMonth" class="form-label">Son Kullanma Tarihi</label>
+                    <input type="number" class="form-control" formControlName="cardExpMonth" id="cardExpMonth"
+                        placeholder="11">
+                </div>
+                <div class="col-6">
+                    <label for="cardExpYear" class="form-label"></label>
+                    <input type="number" class="form-control" id="cardExpYear" formControlName="cardExpYear"
+                        placeholder="21" style="margin-top: 6px;">
+                </div>
+                <div class="col-md-12">
+                    <label for="cvv" class="form-label">CVV</label>
+                    <input type="number" class="form-control" formControlName="cvv" min="100" max="999" id="cvv">
+                </div>
+                <div class="col-md-6">
+                    <h5>Kredi kartı türü</h5>
+                    <div class="form-check" style="margin-top: 15px;">
+                        <input class="form-check-input" type="radio" formControlName="cardType" name="cardType"
+                            id="creditCard" value="Kredi Kartı" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Kredi Kartı
+                        </label>
+                    </div>
+                    <div class="form-check" style="margin-top: 5px;">
+                        <input class="form-check-input" type="radio" formControlName="cardType" name="cardType"
+                            id="debitCard" value="Banka Kartı" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Banka Kartı
+                        </label>
+                    </div>
+                    <div class="form-check" style="margin-top: 5px;">
+                        <input class="form-check-input" type="radio" formControlName="cardType" name="cardType"
+                            id="payPal" value="PayPal" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            PayPal
+                        </label>
+                    </div>
+                </div>
+            </form>
+            <div class="col-12" style="margin-top: 7px;">
+                <div class="form-check">
+                    <input class="form-check-input" [(ngModel)]="saveCreditCard" type="checkbox" id="saveInformations">
+                    <label class="form-check-label" for="gridCheck">
+                        Kart Bilgilerimi Kaydet
+                    </label>
+                </div>
+            </div>
+            <div class="col-6" style="margin-top: 15px;">
+                <div class="alert alert-danger" role="alert" style="max-width: 250px; float: right;">
+                    Toplam Tutar : {{calculateAmount() | currency:"TRY"}}
+                </div>
+                <button type="submit" class="btn btn-primary" style="float: left;" (click)="pay()">Ödeme Yap</button>
+            </div>
+        </div>
+        <div class="col">
+            
+            <div class="list-group" style="margin-top: 75px;">
+                <h5>Kayıtlı Kredi Kartları</h5>
+                <a *ngFor="let creditCard of creditCards" (click)="selectSavedCreditCard(creditCard)"
+                    [class]="changeCurrentCardClass(creditCard.id)" aria-current="true">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{creditCard.cardNumber}}</h5>
+                        <small>{{creditCard.cardExpMonth}} / {{creditCard.cardExpYear}}</small>
+                    </div>
+                    <p class="mb-1">{{creditCard.cardType}}</p>
+                    <small>{{creditCard.fullName}}</small>
+                </a>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="creditCardNumber" class="form-label"></label>
-        <input type="text" [(ngModel)]="cardNumber" id="creditCardNumber" class="form-control" placeholder="Kart numaranızı giriniz">
-    </div>
-    <div style="margin-top: 20px; margin-bottom: 20px;">
-        <input class="form-control" [(ngModel)]="cardExpMonth" min="1" max="12" id="cardExpMonth" type="number" placeholder="Ay"
-            style="max-width: 300px;float: left;">
-        <input class="form-control" [(ngModel)]="cardExpYear" min="21" id="cardExpYear" type="number" placeholder="Yıl"
-            style="max-width: 300px; float :right">
-    </div>
-    <div style="margin-top: 20px;">
-        <input class="form-control" [(ngModel)]="cvv" min="100" id="cvv" type="number" placeholder="CVV">
-    </div>
-    <div style="margin-top: 20px;" class="form-check">
-        <input type="radio" [(ngModel)]="cardType" id="creditCard" name="creditCardType" class="form-check-input" value="Kredi Kartı">
-        <label for="creditCard" class="from-label">Kredi Kartı</label><br>
-        <input type="radio" [(ngModel)]="cardType" id="bankCard" name="creditCardType" class="form-check-input" value="Banka Kartı">
-        <label for="creditCard" class="from-label">Banka Kartı</label>
-    </div>
-    <div class="alert alert-danger" role="alert" style="max-width: 250px; float: right;">
-        Toplam Tutar : {{calculateAmount() | currency:"TRY"}}
-    </div>
-    <button class="btn btn-success" (click)="pay()" style="margin-top: 70px;">Ödemeyi yap</button>
-
 </div>

@@ -1,4 +1,4 @@
-import { ObjectResponseModel } from './../../models/objectResponseModel';
+import { SingleResponseModel } from './../../models/singleResponseModel';
 import { ResponseModel } from 'src/app/models/responseModel';
 import { Color } from './../../models/color';
 import { HttpClient } from '@angular/common/http';
@@ -20,9 +20,9 @@ export class ColorService {
     return this.httpClient.get<ListResponseModel<Color>>(apiUrl)
   }
 
-  getColorByColorId(id:number):Observable<ObjectResponseModel<Color>>{
+  getColorByColorId(id:number):Observable<SingleResponseModel<Color>>{
     let apiUrl = this.apiUrl + "colors/getbyid?id=" + id
-    return this.httpClient.get<ObjectResponseModel<Color>>(apiUrl)
+    return this.httpClient.get<SingleResponseModel<Color>>(apiUrl)
   }
 
   add(color:Color):Observable<ResponseModel>{

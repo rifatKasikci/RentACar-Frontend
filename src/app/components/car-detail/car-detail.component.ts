@@ -37,6 +37,7 @@ export class CarDetailComponent implements OnInit {
   car:Car
   colors:Color[]
   brands:Brand[]
+  isCarImageNull = true
 
   constructor(private carService: CarService,
     private carImageService: CarImageService,
@@ -52,15 +53,13 @@ export class CarDetailComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       if (params["carId"]) {
         this.carId = params["carId"]
-        this.getCarById()
         this.getCarDetail(params["carId"])
         this.getCarImages(params["carId"])
+        this.getCarById()
         this.getLastRentalByCarId(params["carId"])
         this.getBrands()
         this.getColors()
         this.createCarUpdateForm()
-        
-        
       }
     })
   }
@@ -69,15 +68,27 @@ export class CarDetailComponent implements OnInit {
     this.carService.getCarDetailById(carId).subscribe((response) => {
       this.carDetail = response.data
       this.isDataLoaded = true
+      this.setCarUpdateFormValues()
       console.log(this.carDetail)
     })
   }
 
   getCarImages(carId: number) {
-    this.carImageService.getImagesByCarId(carId).subscribe((carImages) => {
-      this.carImages = carImages.data
+    this.carImageService.getImagesByCarId(carId).subscribe((response) => {
+      this.carImages = response.data
       this.isDataLoaded = true
+      this.checkIsCarImageNull()
+      console.log(this.carImages)
+      console.log(this.carImages.length)
     })
+  }
+
+  checkIsCarImageNull(){
+    if (this.carImages.length==1) {
+      return true
+    }else{
+      return false
+    }
   }
 
   getLastRentalByCarId(carId: number) {
@@ -195,6 +206,17 @@ export class CarDetailComponent implements OnInit {
       modelYear:["",Validators.required],
       dailyPrice:["",Validators.required],
       description:["",Validators.required]
+    })
+  }
+
+  setCarUpdateFormValues(){
+    this.carUpdateForm.setValue({
+      brandId:[this.carDetail.brandId],
+      colorId:[this.carDetail.colorId],
+      carName:[this.carDetail.carName],
+      modelYear:[this.carDetail.modelYear],
+      dailyPrice:[this.carDetail.dailyPrice],
+      description:[this.carDetail.description]
     })
   }
 

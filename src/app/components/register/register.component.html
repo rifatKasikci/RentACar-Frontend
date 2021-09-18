@@ -1,0 +1,28 @@
+<div class="container" style="margin-top: 100px;">
+    <h3 class="form-header" style="text-align: center; margin-bottom: 50px;">Kayıt Ol</h3>
+<form class="row g-3" [formGroup]="registerForm">
+    <div class="col-md-6">
+      <label for="inputEmail4" class="form-label" >İsim</label>
+      <input type="email" formControlName="firstName" class="form-control" id="inputEmail4" placeholder="İsminizi giriniz.">
+    </div>
+    <div class="col-md-6">
+      <label for="inputPassword4"  class="form-label">Soyisim</label>
+      <input type="text" formControlName="lastName" class="form-control" id="inputPassword4" placeholder="Soyisminizi giriniz.">
+    </div>
+    <div class="col-12">
+        <label for="inputAddress"  class="form-label">Email Adresi</label>
+        <input type="text" formControlName="email" class="form-control" id="inputAddress" placeholder="Email adresinizi giriniz.">
+      </div>
+    <div class="col-6">
+      <label for="inputAddress"  class="form-label">Şifre</label>
+      <input type="password" formControlName="password" class="form-control" id="inputAddress" placeholder="Şifrenizi giriniz.">
+    </div>
+    <div class="col-6">
+      <label for="inputAddress2"  class="form-label">Şifre tekrar</label>
+      <input type="password" formControlName="passwordRepeat" class="form-control" id="inputAddress2" placeholder="Şifrenizi giriniz(tekrar)">
+    </div>
+    <div class="col-12">
+      <button class="btn btn-primary" (click)="register()">Kayıt Ol</button>
+    </div>
+  </form>
+</div>

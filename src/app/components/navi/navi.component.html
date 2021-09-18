@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand btn" routerLink="/">Car Rental</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle btn" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Markalar
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item btn" routerLink="/brands">Tüm Markalar</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li *ngFor="let brand of brands"><a class="dropdown-item btn" routerLink="/cars/brand/{{brand.id}}">{{brand.brandName}}</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle btn" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Renkler
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item btn" routerLink="/colors">Tüm Renkler</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li *ngFor="let color of colors"><a class="dropdown-item btn" routerLink="/cars/color/{{color.id}}">{{color.colorName}}</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="flex-d button-group" *ngIf="isAuthorizated==false">
+            <button class="btn btn-primary" style="margin-right: 15px;" routerLink="/login">Giriş Yap</button>
+            <button class="btn btn-success" routerLink="/register">Kayıt Ol</button>
+        </div>
+        <div class="flex-d" *ngIf="isAuthorizated==true" style="margin-right: 50px;">
+            <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                {{userDetails.firstName}} {{userDetails.lastName}}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+                <li><a class="dropdown-item btn" routerLink="/profile">Profilim</a></li>
+                <li><a class="dropdown-item btn" (click)="logOut()">Çıkış yap</a></li>
+              </ul>
+        </div>
+    </div>
+      </div>
+    </div>
+  </nav>

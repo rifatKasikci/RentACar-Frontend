@@ -1,5 +1,5 @@
 import { CreditCard } from './../../models/creditCard';
-import { ObjectResponseModel } from './../../models/objectResponseModel';
+import { SingleResponseModel } from './../../models/singleResponseModel';
 import { ListResponseModel } from './../../models/listResponseModel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -22,9 +22,9 @@ export class RentalService {
     return this.httpClient.get<ListResponseModel<RentalDetail>>(apiUrl)
   }
 
-  getLastRentalByCarId(carId:number):Observable<ObjectResponseModel<Rental>>{
+  getLastRentalByCarId(carId:number):Observable<SingleResponseModel<Rental>>{
     let apiUrl = this.apiUrl + "rentals/getlastrentalbycarid?carId=" + carId
-    return this.httpClient.get<ObjectResponseModel<Rental>>(apiUrl)
+    return this.httpClient.get<SingleResponseModel<Rental>>(apiUrl)
   }
 
   addRental(rental:Rental):Observable<ResponseModel>{

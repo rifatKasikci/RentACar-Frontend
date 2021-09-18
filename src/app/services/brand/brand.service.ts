@@ -1,4 +1,4 @@
-import { ObjectResponseModel } from './../../models/objectResponseModel';
+import { SingleResponseModel } from './../../models/singleResponseModel';
 import { ResponseModel } from 'src/app/models/responseModel';
 import { ListResponseModel } from './../../models/listResponseModel';
 import { HttpClient } from '@angular/common/http';
@@ -19,9 +19,9 @@ export class BrandService {
     return this.httpClient.get<ListResponseModel<Brand>>(apiUrl)
   }
 
-  getBrandById(id:number):Observable<ObjectResponseModel<Brand>>{
+  getBrandById(id:number):Observable<SingleResponseModel<Brand>>{
     let apiUrl = this.apiUrl + "brands/getbyid?id=" + id
-    return this.httpClient.get<ObjectResponseModel<Brand>>(apiUrl)
+    return this.httpClient.get<SingleResponseModel<Brand>>(apiUrl)
   }
 
   add(brand:Brand):Observable<ResponseModel>{

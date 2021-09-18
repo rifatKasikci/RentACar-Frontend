@@ -49,13 +49,13 @@ export class CarFilterComponent implements OnInit {
   }
 
   changeRouteLink(){
-    if (this.selectedBrandId!==null && this.selectedColorId!==null) {
+    if (this.selectedBrandId!==undefined && this.selectedColorId!==undefined) {
       this.routeLink = "/cars/brand/" + this.selectedBrandId + "/color/" + this.selectedColorId
       return this.routeLink
-    }else if(this.selectedBrandId==null && this.selectedColorId!==null){
+    }else if(this.selectedBrandId==undefined && this.selectedColorId!==undefined){
       this.routeLink = "/cars/color/" + this.selectedColorId
       return this.routeLink
-    }else if(this.selectedBrandId!==null && this.selectedColorId == null){
+    }else if(this.selectedBrandId!==undefined && this.selectedColorId == undefined){
       this.routeLink = "/cars/brand/" + this.selectedBrandId
       return this.routeLink
     }else{

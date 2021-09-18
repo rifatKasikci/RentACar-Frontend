@@ -1,8 +1,9 @@
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http'
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,10 @@ import { BrandAddComponent } from './components/brand-add/brand-add.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { BrandDetailComponent } from './components/brand-detail/brand-detail.component';
 import { ColorDetailComponent } from './components/color-detail/color-detail.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { NaviComponent } from './components/navi/navi.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +48,11 @@ import { ColorDetailComponent } from './components/color-detail/color-detail.com
     BrandAddComponent,
     ColorAddComponent,
     BrandDetailComponent,
-    ColorDetailComponent
+    ColorDetailComponent,
+    LoginComponent,
+    RegisterComponent,
+    NaviComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -53,10 +62,12 @@ import { ColorDetailComponent } from './components/color-detail/color-detail.com
     BrowserAnimationsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot({
-      positionClass:"toast-bottom-right"
+      positionClass: "toast-bottom-right"
     })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

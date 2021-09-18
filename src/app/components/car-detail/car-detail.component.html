@@ -2,7 +2,7 @@
   <span class="visually-hidden">Loading...</span>
 </div>
 
-<div class="container">
+<div class="container" >
   <div class="row">
     <div class="col-5">
 
@@ -21,31 +21,23 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+
+      <div id="carouselExampleSlidesOnly" *ngIf="checkIsCarImageNull()" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://localhost:44320/images/logo.jpg" width="300px" height="300px">
+          </div>
+        </div>
+      </div>
       </div>
     <div class="col-7">
-<table *ngIf="isDataLoaded==true" class="table">
-  <thead>
-    <tr>
-      <th scope="col">Marka</th>
-      <th scope="col">Renk</th>
-      <th scope="col">Model</th>
-      <th scope="col">Model Yılı</th>
-      <th scope="col">Günlük Ücret</th>
-      <th scope="col">Açıklama</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{carDetail.brandName}}</td>
-      <td>{{carDetail.colorName}}</td>
-      <td>{{carDetail.carName}}</td>
-      <td>{{carDetail.modelYear}}</td>
-      <td>{{carDetail.dailyPrice}}</td>
-      <td>{{carDetail.description}}</td>
-    </tr>
-  </tbody>
-</table>
-
+      <ul *ngIf="isDataLoaded" style="margin-top: 100px;" class="list-group list-group-flush">
+        <li class="list-group-item">Marka : {{carDetail.brandName}}</li>
+        <li class="list-group-item">Renk : {{carDetail.colorName}}</li>
+        <li class="list-group-item">Model : {{carDetail.carName}}</li>
+        <li class="list-group-item">Günlük Ücret : {{carDetail.dailyPrice}}</li>
+        <li class="list-group-item">Açıklama : {{carDetail.description}}</li>
+      </ul>
 </div>
 </div>
 <div class="row">
@@ -75,6 +67,8 @@
 </div>
 
 
+
+
 <!--Update Modal-->
 <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -89,7 +83,6 @@
               <label for="brandId">Marka İsmi :</label>
               <div class="form-group">
                   <select class="form-select" id="brandId" formControlName="brandId"  aria-label="Default select example">
-                      <option selected disabled>{{carDetail.brandName}}</option>
                       <option *ngFor="let brand of brands" value={{brand.id}}>{{brand.brandName}}</option>
                     </select>
               </div>
@@ -98,7 +91,6 @@
               <label for="colorId">Renk İsmi :</label>
               <div class="form-group">
                   <select class="form-select" id="colorId" formControlName="colorId" aria-label="Default select example">
-                      <option selected disabled value="{{car.colorId}}">{{carDetail.colorName}}</option>
                       <option *ngFor="let color of colors" value="{{color.id}}">{{color.colorName}}</option>
                     </select>
               </div>
@@ -111,7 +103,7 @@
                   class="form-control" 
                   formControlName="carName" 
                   id="carName"
-                  placeholder="{{carDetail.carName}}">
+                  placeholder="Araba ismini giriniz.">
               </div>
           </div>
           <div class="mb-3">
@@ -122,7 +114,7 @@
                   class="form-control" 
                   formControlName="modelYear" 
                   id="modelYear"
-                  placeholder="{{carDetail.modelYear}}">
+                  placeholder="Model yılını giriniz.">
               </div>
           </div>
           <div class="mb-3">
@@ -134,7 +126,7 @@
                   class="form-control" 
                   formControlName="dailyPrice" 
                   id="dailyPrice"
-                  placeholder="{{carDetail.dailyPrice}}">
+                  placeholder="Günlük ücreti giriniz.">
                   <span class="input-group-text">.00</span>
               </div>
               
@@ -144,16 +136,16 @@
               <div class="input-group">
                   <textarea 
                   id="description" 
-                  class="form-control" 
-                  placeholder="{{carDetail.description}}"
+                  class="form-control"
                   formControlName="description" 
-                  rows="5"></textarea>
+                  rows="5"
+                  placeholder="Açıklama giriniz."></textarea>
               </div>
           </div>
       </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="setCarUpdateFormValues()" >İptal</button>
         <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="updateCar()">Güncelle</button>
       </div>
     </div>

@@ -1,0 +1,96 @@
+<div class="container">
+<div class="card" style="margin-top: 50px;">
+    <div class="card-header">
+      <h6>Bilgilerim</h6>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">İsim-Soyisim</h5>
+      <p class="card-text">{{user.firstName}} {{user.lastName}}</p>
+    </div>
+    <hr class="dropdown-divider">
+    <div class="card-body">
+        <h5 class="card-title">Email</h5>
+        <p class="card-text">{{user.email}}</p>
+      </div>
+      <hr class="dropdown-divider">
+      <div class="card-body">
+        <h5 class="card-title">Şirket İsmi</h5>
+        <p class="card-text">{{customerDetail.companyName}}</p>
+      </div>
+      <hr class="dropdown-divider">
+      <div class="card-body">
+        <h5 class="card-title">Findeks Puanı</h5>
+        <p class="card-text">{{customerDetail.findeksPoint}}</p>
+      </div>
+  </div>
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" style="margin-top: 30px; float: right;" data-bs-target="#exampleModal">
+    Güncelle
+  </button>
+</div>
+
+
+<div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bilgilerini Güncelle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userUpdateForm">
+          <div class="mb-3">
+              <label for="firstName">İsim :</label>
+              <div class="form-group">
+                  <input 
+                  type="text"
+                  class="form-control" 
+                  formControlName="firstName" 
+                  id="firstName"
+                  placeholder="İsminizi giriniz">
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="lastName">Soyisim :</label>
+              <div class="form-group">
+                  <input 
+                  type="text"
+                  class="form-control" 
+                  formControlName="lastName" 
+                  id="lastName"
+                  placeholder="Soyisiminizi giriniz">
+              </div>
+          </div>
+          <div class="mb-3">
+              <label for="email">Email : </label>
+              <div class="input-group">
+                  <span class="input-group-text">@</span>
+                  <input 
+                  type="text"
+                  class="form-control" 
+                  formControlName="email" 
+                  id="email"
+                  placeholder="Email adresinizi giriniz">
+              </div>
+              
+          </div>
+          <div class="mb-3">
+              <label for="companyName">Şirket ismi :</label>
+              <div class="input-group">
+                  <input
+                  type="text" 
+                  id="companyName" 
+                  class="form-control" 
+                  placeholder="Şirket isminizi giriniz"
+                  formControlName="companyName">
+              </div>
+          </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="updateUser()">Güncelle</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Update Modal-->
