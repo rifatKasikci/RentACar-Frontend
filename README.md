@@ -5,7 +5,7 @@ This project is the frontend of my rent a car project that I developed at the C#
 
 ## Technics That Used
 
-- Customer Directives
+- Custom Directives
 - Custom Form Controls
 - Guards
 - Interceptors
