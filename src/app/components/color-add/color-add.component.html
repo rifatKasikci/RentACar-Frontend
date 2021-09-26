@@ -7,15 +7,9 @@
         <div class="card-body">
             <form [formGroup]="colorAddForm" >
                 <div class="mb-3">
-                    <label for="colorName">Renk İsmi :</label>
-                    <div class="form-group">
-                        <input 
-                        type="text" 
-                        formControlName="colorName" 
-                        id="colorName"
-                        class="form-control" 
-                        placeholder="Renk ismi giriniz">
-                    </div>
+                    <app-text-field formControlName="colorName">
+                        Renk İsmi :
+                      </app-text-field>
                 </div>
             </form>
         </div>

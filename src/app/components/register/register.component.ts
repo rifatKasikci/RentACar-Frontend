@@ -5,6 +5,8 @@ import { FormGroup , FormControl , Validators , FormBuilder } from '@angular/for
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LocalService } from 'src/app/services/local/local.service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
+import { UserDetail } from 'src/app/models/userDetail';
 
 @Component({
   selector: 'app-register',
@@ -14,9 +16,11 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   registerForm:FormGroup
+  userDetail:UserDetail
 
   constructor(private formBuilder:FormBuilder,
     private authService:AuthService,
+    private userService:UserService,
     private localService:LocalService,
     private toastrService:ToastrService,
     private router:Router) { }
@@ -46,6 +50,12 @@ export class RegisterComponent implements OnInit {
         this.toastrService.success("Hesap oluşturuldu" , "İşlem başarılı!")
         this.toastrService.info("Giriş yapıldı." , "Bilgilendirme!")
         this.localService.add("token" , response.data.token)
+        this.userService.getUserDetailsByEmail(this.registerForm.value.email).subscribe((response) => { 
+          this.userDetail = response.data
+          this.localService.add("user_details" , JSON.stringify(this.userDetail))
+          window.location.reload()
+          this.router.navigate(["/cars"]) 
+        })
       },(responseError) => {
         this.toastrService.error(responseError.error , "İşlem başarısız!");
         

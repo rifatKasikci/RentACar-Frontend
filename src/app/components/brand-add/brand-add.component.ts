@@ -1,3 +1,4 @@
+import { OperationClaim } from './../../models/operationClaim';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup , FormControl , FormBuilder , Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +12,7 @@ import { BrandService } from 'src/app/services/brand/brand.service';
 export class BrandAddComponent implements OnInit {
 
   brandAddForm:FormGroup
-
+  
   constructor(private formBuilder:FormBuilder,
     private brandService:BrandService,
     private toastrService:ToastrService) { }

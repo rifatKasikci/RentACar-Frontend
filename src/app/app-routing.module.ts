@@ -15,22 +15,23 @@ import { BrandAddComponent } from './components/brand-add/brand-add.component';
 import { BrandDetailComponent } from './components/brand-detail/brand-detail.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {path: "",component: CarComponent},
   {path: "cars",component: CarComponent},
-  {path : "cars/brand/:brandId",component : CarComponent},
-  {path : "cars/color/:colorId",component : CarComponent},
-  {path : "cars/brand/:brandId/color/:colorId" , component : CarComponent},
-  {path : "cars/detail/:carId",component : CarDetailComponent},
+  {path : "cars/brand/:brandId",component : CarComponent , canActivate : [LoginGuard]},
+  {path : "cars/color/:colorId",component : CarComponent , canActivate : [LoginGuard]},
+  {path : "cars/brand/:brandId/color/:colorId" , component : CarComponent , canActivate : [LoginGuard]},
+  {path : "cars/detail/:carId",component : CarDetailComponent , canActivate : [LoginGuard]},
   {path : "cars/add" , component : CarAddComponent , canActivate : [LoginGuard]},
-  {path : "brands" , component : BrandComponent},
-  {path : "brands/add" , component : BrandAddComponent},
-  {path : "brands/detail/:brandId" , component : BrandDetailComponent},
-  {path : "colors" , component : ColorComponent},
-  {path : "colors/detail/:colorId" , component : ColorDetailComponent},
-  {path : "colors/add" , component : ColorAddComponent},
-  {path : "rentals" , component : RentalComponent},
+  {path : "brands" , component : BrandComponent , canActivate : [LoginGuard]},
+  {path : "brands/add" , component : BrandAddComponent , canActivate : [LoginGuard , AdminGuard]},
+  {path : "brands/detail/:brandId" , component : BrandDetailComponent , canActivate : [LoginGuard]},
+  {path : "colors" , component : ColorComponent , canActivate : [LoginGuard]},
+  {path : "colors/detail/:colorId" , component : ColorDetailComponent , canActivate : [LoginGuard]},
+  {path : "colors/add" , component : ColorAddComponent , canActivate : [LoginGuard , AdminGuard]},
+  {path : "rentals" , component : RentalComponent , canActivate : [LoginGuard,AdminGuard]},
   {path : "cars/detail/rent/:rental" , component : PaymentComponent , canActivate : [LoginGuard]},
   {path : "login", component : LoginComponent},
   {path : "register" , component : RegisterComponent},

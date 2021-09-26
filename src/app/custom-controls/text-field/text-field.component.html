@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label>
+        <ng-content></ng-content>
+    </label>
+    <input class="form-control" type="text" [formControl]="inputText" (input)="doInput()" (blur)="doBlur()">
+    <div *ngIf="inputText.hasError('required')" style="margin-top: 5px;max-width: 290px;" class="alert alert-danger" role="alert">
+        Bu alanın doldurulması zorunludur!
+      </div>
+</div>

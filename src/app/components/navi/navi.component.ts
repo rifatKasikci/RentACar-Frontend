@@ -60,6 +60,7 @@ export class NaviComponent implements OnInit {
   logOut() {
     this.localService.delete("token")
     this.localService.delete("user_details")
+    this.localService.delete("claim")
     this.toastrService.info("Çıkış yapıldı.", "Bilgilendirme!")
     this.router.navigate(["login"])
     window.location.reload()

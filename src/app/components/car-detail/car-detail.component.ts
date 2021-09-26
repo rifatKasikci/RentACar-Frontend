@@ -13,6 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 import { FormGroup , FormControl , Validators , FormBuilder } from '@angular/forms';
 import { BrandService } from 'src/app/services/brand/brand.service';
 import { ColorService } from 'src/app/services/color/color.service';
+import { CustomerService } from 'src/app/services/customer/customer.service';
+import { LocalService } from 'src/app/services/local/local.service';
+import { UserDetail } from 'src/app/models/userDetail';
+import { CustomerDetail } from 'src/app/models/customerDetail';
 
 @Component({
   selector: 'app-car-detail',
@@ -28,7 +32,7 @@ export class CarDetailComponent implements OnInit {
   carId: number
   lastRental = {id: 0, carId: 0, customerId: 0, rentDate: new Date(2021, 12, 12), returnDate: new Date(2021, 12, 12)}
   newRental: Rental = { id: 0, carId: 0, customerId: 0, rentDate: new Date(2021, 12, 12), returnDate: new Date(2021, 12, 12) }
-  customerId: number = 1
+  customerDetail : CustomerDetail
   rentDate: string
   returnDate: string
   lastRentalReturnDate: string
@@ -43,6 +47,8 @@ export class CarDetailComponent implements OnInit {
     private carImageService: CarImageService,
     private brandService:BrandService,
     private colorService:ColorService,
+    private customerService:CustomerService,
+    private localService:LocalService,
     private activatedRoute: ActivatedRoute,
     private rentalService: RentalService,
     private toastrService: ToastrService,
@@ -57,6 +63,7 @@ export class CarDetailComponent implements OnInit {
         this.getCarImages(params["carId"])
         this.getCarById()
         this.getLastRentalByCarId(params["carId"])
+        this.getCustomerDetail()
         this.getBrands()
         this.getColors()
         this.createCarUpdateForm()
@@ -71,6 +78,21 @@ export class CarDetailComponent implements OnInit {
       this.setCarUpdateFormValues()
       console.log(this.carDetail)
     })
+  }
+
+  getCustomerDetail(){
+    let userDetail:UserDetail = JSON.parse(this.localService.getItem("user_details") || "")
+    this.customerService.getCustomerDetailsByUserId(userDetail.id).subscribe((response)=>{
+      this.customerDetail = response.data
+    })
+  }
+
+  checkFindeksScore(){
+    if (this.carDetail.minFindeksScore>this.customerDetail.findeksPoint) {
+      return false
+    }else{
+      return true
+    }
   }
 
   getCarImages(carId: number) {
@@ -130,9 +152,13 @@ export class CarDetailComponent implements OnInit {
   }
 
   rentCar(rental: Rental) {
+    if (!this.checkFindeksScore()) {
+      this.router.navigate(["cars/detail/" , this.carDetail.id])
+      this.toastrService.error("Findeks puanı yetersiz!" , "İşlem başarısız!")
+    }else{
     this.controlDates()
     rental.carId = this.carId
-    rental.customerId = this.customerId
+    rental.customerId = this.customerDetail.id
     rental.rentDate = new Date(this.rentDate)
     rental.returnDate = new Date(this.returnDate)
     if (this.isDatesValid === true) {
@@ -142,6 +168,7 @@ export class CarDetailComponent implements OnInit {
       this.toastrService.error("Tarih bilgileri geçersiz.")
       this.router.navigate(["/"])
     }
+  }
   }
 
   getCarById(){

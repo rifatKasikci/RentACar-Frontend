@@ -29,6 +29,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NaviComponent } from './components/navi/navi.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AuthorizedDirective } from './directives/authorized.directive';
+import { TextFieldComponent } from './custom-controls/text-field/text-field.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     LoginComponent,
     RegisterComponent,
     NaviComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AuthorizedDirective,
+    TextFieldComponent
   ],
   imports: [
     BrowserModule,

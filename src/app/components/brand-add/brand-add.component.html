@@ -6,17 +6,9 @@
     </div>
     <div class="card-body">
       <form [formGroup]="brandAddForm">
-        <div class="mb-3">
-            <label for="brandName">Marka ismi :</label>
-            <div class="form-group">
-            <input 
-            type="text" 
-            id="brandName" 
-            formControlName="brandName"
-            class="form-control" 
-            placeholder="Marka ismini giriniz" >
-        </div>
-        </div>
+        <app-text-field formControlName="brandName">
+          Marka İsmi :
+        </app-text-field>
       </form>
     </div>
     <div class="card-footer">
@@ -25,3 +17,16 @@
   </div>
 </div>
 </div>
+
+
+<!-- <div class="mb-3">
+  <label for="brandName">Marka ismi :</label>
+  <div class="form-group">
+  <input 
+  type="text" 
+  id="brandName" 
+  formControlName="brandName"
+  class="form-control" 
+  placeholder="Marka ismini giriniz" >
+</div>
+</div> -->

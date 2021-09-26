@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserForUpdateDto } from 'src/app/models/userForUpdateDto';
+import { ListResponseModel } from 'src/app/models/listResponseModel';
+import { OperationClaim } from 'src/app/models/operationClaim';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,11 @@ export class UserService {
   getUserById(userId:number):Observable<SingleResponseModel<User>>{
     let apiUrl = this.apiUrl + "users/getuserbyuserid?userId=" + userId
     return this.httpClient.get<SingleResponseModel<User>>(apiUrl)
+  }
+
+  getClaimsByUserId(userId:number):Observable<ListResponseModel<OperationClaim>>{
+    let apiUrl = this.apiUrl + "users/getclaimsbyuserid?userId=" + userId
+    return this.httpClient.get<ListResponseModel<OperationClaim>>(apiUrl)
   }
 
   getUserDetailsByEmail(email:string):Observable<SingleResponseModel<UserDetail>>{

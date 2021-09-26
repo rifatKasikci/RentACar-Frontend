@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LocalService } from 'src/app/services/local/local.service';
+import { OperationClaim } from 'src/app/models/operationClaim';
 
 @Component({
   selector: 'app-login',
@@ -42,18 +43,33 @@ export class LoginComponent implements OnInit {
       console.log(response)
       this.toastrService.info(response.message , "Bilgilendirme!")
       this.localService.add("token" , response.data.token)
-      this.userService.getUserDetailsByEmail(this.loginForm.value.email).subscribe((response) => { 
-        this.userDetail = response.data
-        this.localService.add("user_details" , JSON.stringify(this.userDetail))
-        window.location.reload()
-        this.router.navigate(["/cars"]) 
-      })
+      this.getUserDetails()
     },(responseError) => {
       this.toastrService.error(responseError.error , "İşlem başarısız!")
     })
    }else{
     this.toastrService.error("Form bilgileri eksik." , "İşlem başarısız!")
    }
+  }
+
+  getUserClaims(){
+    this.userService.getClaimsByUserId(this.userDetail.id).subscribe((response)=>{
+      let claim:OperationClaim = response.data[0]
+      console.log(claim)
+      this.localService.add("user_claim",JSON.stringify(claim.name))
+      console.log("claimadded")
+    })
+  }
+
+  getUserDetails(){
+    this.userService.getUserDetailsByEmail(this.loginForm.value.email).subscribe((response) => { 
+      this.userDetail = response.data
+      console.log("here")
+      this.getUserClaims()
+      this.localService.add("user_details" , JSON.stringify(this.userDetail))
+      window.location.reload()
+      this.router.navigate([""]) 
+    })
   }
 
 }
